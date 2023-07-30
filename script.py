@@ -41,7 +41,6 @@ def main():
     totalDistance = 0
     addressdf = loadAddresses()
     for i in addressdf.index:
-        #print("NUMBER " + str(i) + ": " + addressdf.at[addressdf.index[i],'address'])
         lat, lon = getCoords(addressdf.at[addressdf.index[i],'address'])
         distance = getDriveDistance(lat, lon)
         totalDistance += distance
