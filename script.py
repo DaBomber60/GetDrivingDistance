@@ -36,6 +36,9 @@ def getDriveDistance(lat, lon):
         distance = round(distancem/1000,2)
         return distance
 
+def testfunction():
+    #does nothing
+    return
 
 def main():
     totalDistance = 0
