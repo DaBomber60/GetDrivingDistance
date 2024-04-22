@@ -6,6 +6,8 @@ from flatten_json import flatten
 import time
 import csv
 
+#This script calculates the total distance to all appointments in a given CSV file, and writes the results to a new CSV file with the address, distance, and client name for each appointment. It uses the Open Source Routing Machine API to calculate driving distances.
+
 geolocator = Nominatim(user_agent="your_user_agent_here") #Nominatim likes you to use your email in case of overuse of the API
 
 addressFile = "appointments.csv"
