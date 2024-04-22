@@ -6,6 +6,8 @@ from flatten_json import flatten
 import time
 import csv
 
+#This script calculates the total distance to all appointments in a given CSV file, and writes the results to a new CSV file with the address, distance, and client name for each appointment. It uses the Open Source Routing Machine API to calculate driving distances.
+
 geolocator = Nominatim(user_agent="your_user_agent_here") #Nominatim likes you to use your email in case of overuse of the API
 
 addressFile = "appointments.csv"
@@ -22,13 +24,14 @@ def loadAddresses():
     #print(addressdf.to_string())
 
 def getCoords(address):
-    #converts address to lat and lon
+    #gets coordinates for given address
     location = geolocator.geocode(address)
     lat = location.latitude
     lon = location.longitude
     return lat, lon
 
 def getDriveDistance(lat, lon):
+    #gets driving distance from start address to given lat/lon
     startAddressLat, startAddressLon = getCoords(startAddress)
     with urllib.request.urlopen(f"https://router.project-osrm.org/route/v1/car/{startAddressLon},{startAddressLat};{lon},{lat}?overview=false") as url:
         route = json.load(url)
@@ -37,11 +40,8 @@ def getDriveDistance(lat, lon):
         distance = round(distancem/1000,2)
         return distance
 
-def testfunction():
-    #does nothing
-    return
-
 def main():
+    #calculates total distance for all appointments
     totalDistance = 0
     addressdf = loadAddresses()
     for i in addressdf.index:
@@ -62,10 +62,6 @@ def main():
         write = csv.writer(f)
         write.writerow(tripsFields)
         write.writerows(tripsRows)
-
-def compress():
-    #things to do
-    return
 
 if __name__ == "__main__":
     main()
