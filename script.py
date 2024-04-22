@@ -22,6 +22,7 @@ def loadAddresses():
     #print(addressdf.to_string())
 
 def getCoords(address):
+    #converts address to lat and lon
     location = geolocator.geocode(address)
     lat = location.latitude
     lon = location.longitude
