@@ -59,5 +59,9 @@ def main():
         write.writerow(tripsFields)
         write.writerows(tripsRows)
 
+def compress():
+    #things to do
+    return
+
 if __name__ == "__main__":
     main()
