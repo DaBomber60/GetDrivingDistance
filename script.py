@@ -22,12 +22,14 @@ def loadAddresses():
     #print(addressdf.to_string())
 
 def getCoords(address):
+    #gets coordinates for given address
     location = geolocator.geocode(address)
     lat = location.latitude
     lon = location.longitude
     return lat, lon
 
 def getDriveDistance(lat, lon):
+    #gets driving distance from start address to given lat/lon
     startAddressLat, startAddressLon = getCoords(startAddress)
     with urllib.request.urlopen(f"https://router.project-osrm.org/route/v1/car/{startAddressLon},{startAddressLat};{lon},{lat}?overview=false") as url:
         route = json.load(url)
@@ -36,11 +38,8 @@ def getDriveDistance(lat, lon):
         distance = round(distancem/1000,2)
         return distance
 
-def testfunction():
-    #does nothing
-    return
-
 def main():
+    #calculates total distance for all appointments
     totalDistance = 0
     addressdf = loadAddresses()
     for i in addressdf.index:
@@ -61,10 +60,6 @@ def main():
         write = csv.writer(f)
         write.writerow(tripsFields)
         write.writerows(tripsRows)
-
-def compress():
-    #things to do
-    return
 
 if __name__ == "__main__":
     main()
